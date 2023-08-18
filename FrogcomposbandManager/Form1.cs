@@ -25,14 +25,22 @@ namespace FrogcomposbandManager
                 SavePath = (string?)config["SavePath"];
                 BackupPath = (string?)config["BackupPath"];
                 ExePath = (string?)config["ExePath"];
+
+                // Validate the configuration
+                string validationError = ValidateConfiguration();
+                if (!string.IsNullOrEmpty(validationError))
+                {
+                    MessageBox.Show(validationError);
+                    // You may set default values here if needed
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show("An error occurred while loading the configuration: " + ex.Message);
-                // You may set default values here if needed
             }
         }
 
+        // Refreshes the list of save files by reading them from the SavePath directory
         private void RefreshFileList()
         {
             try
@@ -65,6 +73,19 @@ namespace FrogcomposbandManager
             }
         }
 
+        // Validates the configuration paths
+        private string ValidateConfiguration()
+        {
+            if (SavePath != null && !Directory.Exists(SavePath))
+                return "Save path is not a valid directory.";
+            if (BackupPath != null && !Directory.Exists(BackupPath))
+                return "Backup path is not a valid directory.";
+            if (ExePath != null && !File.Exists(ExePath))
+                return "Executable path is not a valid file.";
+
+            return string.Empty; // No validation errors
+        }
+
         private void Form1_Load(object sender, EventArgs e)
         {
             RefreshFileList();
@@ -75,6 +96,7 @@ namespace FrogcomposbandManager
             RefreshFileList();
         }
 
+        // Handles the click event for the Backup button, copying the selected save file to the backup directory
         private void btnBackup_Click(object sender, EventArgs e)
         {
             try
@@ -87,6 +109,7 @@ namespace FrogcomposbandManager
             }
         }
 
+        // Handles the click event for the Restore button, copying the selected backup file to the save directory
         private void btnRestore_Click(object sender, EventArgs e)
         {
             try
@@ -99,6 +122,7 @@ namespace FrogcomposbandManager
             }
         }
 
+        // Handles the click event for the Launch button, starting the game with the selected save file
         private void btnLaunch_Click(object sender, EventArgs e)
         {
             try
@@ -114,6 +138,7 @@ namespace FrogcomposbandManager
             }
         }
 
+        // Handles the click event for the Delete button, deleting the selected save file and its backup
         private void btnDelete_Click(object sender, EventArgs e)
         {
             try
