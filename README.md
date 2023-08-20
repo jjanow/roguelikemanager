@@ -16,9 +16,9 @@ The configuration file `config.json` contains the paths for the save files, back
 
 ```json
 {
-  "SavePath": "C:\Games\Frogcomposband\lib\save\",
-  "BackupPath": "C:\Games\Frogcomposband\lib\save\backup\",
-  "ExePath": "C:\Games\Frogcomposband\frogcomposband.exe"
+  "SavePath": "C:\\Games\\Frogcomposband\\lib\\save\\",
+  "BackupPath": "C:\\Games\\Frogcomposband\\lib\\save\\backup\\",
+  "ExePath": "C:\\Games\\Frogcomposband\\frogcomposband.exe"
 }
 ```
 
