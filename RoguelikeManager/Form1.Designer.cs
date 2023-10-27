@@ -34,6 +34,7 @@
             btnRestore = new Button();
             btnLaunch = new Button();
             btnDelete = new Button();
+            gameSelectionComboBox = new ComboBox();
             SuspendLayout();
             // 
             // btnRefreshSaves
@@ -104,6 +105,13 @@
             btnDelete.UseVisualStyleBackColor = true;
             btnDelete.Click += btnDelete_Click;
             // 
+            // gameSelectionComboBox
+            // 
+            gameSelectionComboBox.Location = new Point(631, 20);
+            gameSelectionComboBox.Name = "gameSelectionComboBox";
+            gameSelectionComboBox.Size = new Size(121, 28);
+            gameSelectionComboBox.TabIndex = 6;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -116,6 +124,7 @@
             Controls.Add(btnBackup);
             Controls.Add(lbSaves);
             Controls.Add(btnRefreshSaves);
+            Controls.Add(gameSelectionComboBox);
             ForeColor = SystemColors.ControlLightLight;
             Name = "Form1";
             ShowIcon = false;
@@ -132,5 +141,6 @@
         private Button btnRestore;
         private Button btnLaunch;
         private Button btnDelete;
+        private ComboBox gameSelectionComboBox;
     }
 }

@@ -26,6 +26,15 @@ namespace RoguelikeManager
                 BackupPath = (string?)config["BackupPath"];
                 ExePath = (string?)config["ExePath"];
 
+                // New code to populate the gameSelectionComboBox
+                if (config["GameList"] is JArray gameList)
+                {
+                    foreach (var game in gameList)
+                    {
+                        gameSelectionComboBox.Items.Add(game.ToString());
+                    }
+                }
+
                 // Validate the configuration
                 string validationError = ValidateConfiguration();
                 if (!string.IsNullOrEmpty(validationError))
