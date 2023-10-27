@@ -9,6 +9,7 @@ namespace RoguelikeManager
         public string? SavePath { get; set; } //= @"C:\Games\Frogcomposband\lib\save\";
         public string? BackupPath { get; set; } //= @"C:\Games\Frogcomposband\lib\save\backup\";
         public string? ExePath { get; set; } //= @"C:\Games\Frogcomposband\frogcomposband.exe";
+        public string? FileFilter { get; set; }
 
         public Form1()
         {
@@ -22,10 +23,16 @@ namespace RoguelikeManager
             try
             {
                 string configJson = File.ReadAllText("config.json");
-                JObject config = JObject.Parse(configJson);
+                JObject? config = JObject.Parse(configJson);
+                JObject? games = config["Games"] as JObject;
+
+                if (config["Games"] is JObject games && gameSelectionComboBox.SelectedItem != null)
+                {
+                    string selectedGame = gameSelectionComboBox.SelectedItem.ToString();
+                    FileFilter = (string?)games[selectedGame]?["FileFilter"];
+                }
 
                 // Populate the gameSelectionComboBox
-                JObject? games = config["Games"] as JObject;
                 if (games != null)
                 {
                     foreach (var game in games.Properties())
@@ -55,7 +62,8 @@ namespace RoguelikeManager
                 lbSaves.Items.Clear();
                 if (SavePath != null)
                 {
-                    SaveFiles = Directory.GetFiles(SavePath);
+                    string fileFilter = FileFilter ?? "*.*";  // Use the FileFilter or default to "*.*"
+                    SaveFiles = Directory.GetFiles(SavePath, fileFilter);
                     foreach (string file in SaveFiles)
                     {
                         if (File.Exists(file))
