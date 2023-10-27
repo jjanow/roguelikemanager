@@ -14,6 +14,7 @@ namespace RoguelikeManager
         {
             InitializeComponent();
             LoadConfiguration();
+            gameSelectionComboBox.SelectedIndexChanged += new EventHandler(gameSelectionComboBox_SelectedIndexChanged);
         }
 
         private void LoadConfiguration()
@@ -22,25 +23,22 @@ namespace RoguelikeManager
             {
                 string configJson = File.ReadAllText("config.json");
                 JObject config = JObject.Parse(configJson);
-                SavePath = (string?)config["SavePath"];
-                BackupPath = (string?)config["BackupPath"];
-                ExePath = (string?)config["ExePath"];
 
-                // New code to populate the gameSelectionComboBox
-                if (config["GameList"] is JArray gameList)
+                // Populate the gameSelectionComboBox
+                JObject? games = config["Games"] as JObject;
+                if (games != null)
                 {
-                    foreach (var game in gameList)
+                    foreach (var game in games.Properties())
                     {
-                        gameSelectionComboBox.Items.Add(game.ToString());
+                        gameSelectionComboBox.Items.Add(game.Name);
                     }
                 }
 
-                // Validate the configuration
-                string validationError = ValidateConfiguration();
-                if (!string.IsNullOrEmpty(validationError))
+                // Set the last selected game
+                string? lastSelectedGame = config["Settings"]?["LastSelectedGame"]?.ToString();
+                if (lastSelectedGame != null)
                 {
-                    MessageBox.Show(validationError);
-                    // You may set default values here if needed
+                    gameSelectionComboBox.SelectedItem = lastSelectedGame;
                 }
             }
             catch (Exception ex)
@@ -159,6 +157,34 @@ namespace RoguelikeManager
             catch (Exception ex)
             {
                 MessageBox.Show("An error occurred while deleting the file: " + ex.Message);
+            }
+        }
+
+        private void gameSelectionComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                // Read the existing config.json
+                string configJson = File.ReadAllText("config.json");
+                JObject config = JObject.Parse(configJson);
+
+                // Update the LastSelectedGame in the Settings
+                if (config["Settings"] is JObject settings)
+                {
+                    settings["LastSelectedGame"] = gameSelectionComboBox.SelectedItem?.ToString();
+                }
+                else
+                {
+                    // If "Settings" doesn't exist, create it
+                    config["Settings"] = new JObject(new JProperty("LastSelectedGame", gameSelectionComboBox.SelectedItem?.ToString()));
+                }
+
+                // Write the updated config back to config.json
+                File.WriteAllText("config.json", config.ToString());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred while updating the configuration: " + ex.Message);
             }
         }
     }

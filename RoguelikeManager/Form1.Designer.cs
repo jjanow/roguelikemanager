@@ -107,9 +107,12 @@
             // 
             // gameSelectionComboBox
             // 
-            gameSelectionComboBox.Location = new Point(631, 20);
+            gameSelectionComboBox.DropDownHeight = 115;
+            gameSelectionComboBox.DropDownWidth = 180;
+            gameSelectionComboBox.IntegralHeight = false;
+            gameSelectionComboBox.Location = new Point(580, 20);
             gameSelectionComboBox.Name = "gameSelectionComboBox";
-            gameSelectionComboBox.Size = new Size(121, 28);
+            gameSelectionComboBox.Size = new Size(172, 28);
             gameSelectionComboBox.TabIndex = 6;
             // 
             // Form1

@@ -1,14 +1,19 @@
 ﻿{
-	"Frogcomposband": {
-		"SavePath": "C:\\Games\\Frogcomposband\\lib\\save\\",
-		"BackupPath": "C:\\Games\\Frogcomposband\\lib\\save\\backup\\",
-		"ExePath": "C:\\Games\\Frogcomposband\\frogcomposband.exe",
-		"FileFilter": "*.*"
+	"Settings": {
+		"LastSelectedGame": "Frogcomposband"
 	},
-	"DCSS": {
-		"SavePath": "C:\\Games\\DCSS\\saves\\",
-		"BackupPath": "C:\\Games\\DCSS\\saves\\backup\\",
-		"ExePath": "C:\\Games\\DCSS\\crawl.exe",
-		"FileFilter": "*.cs"
+	"Games": {
+		"Frogcomposband": {
+			"SavePath": "C:\\Games\\Frogcomposband\\lib\\save\\",
+			"BackupPath": "C:\\Games\\Frogcomposband\\lib\\save\\backup\\",
+			"ExePath": "C:\\Games\\Frogcomposband\\frogcomposband.exe",
+			"FileFilter": "*.*"
+		},
+		"DCSS": {
+			"SavePath": "C:\\Games\\DCSS\\saves\\",
+			"BackupPath": "C:\\Games\\DCSS\\saves\\backup\\",
+			"ExePath": "C:\\Games\\DCSS\\crawl.exe",
+			"FileFilter": "*.cs"
+		}
 	}
 }
