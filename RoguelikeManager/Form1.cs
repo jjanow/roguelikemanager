@@ -1,7 +1,7 @@
 using Newtonsoft.Json.Linq;
 using System.Diagnostics;
 
-namespace FrogcomposbandManager
+namespace RoguelikeManager
 {
     public partial class Form1 : Form
     {

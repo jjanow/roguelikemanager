@@ -1,4 +1,4 @@
-﻿namespace FrogcomposbandManager
+﻿namespace RoguelikeManager
 {
     partial class Form1
     {

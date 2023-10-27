@@ -1,4 +1,4 @@
-namespace FrogcomposbandManager
+namespace RoguelikeManager
 {
     internal static class Program
     {
