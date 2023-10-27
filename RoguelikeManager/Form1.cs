@@ -14,7 +14,7 @@ namespace RoguelikeManager
         {
             InitializeComponent();
             LoadConfiguration();
-            gameSelectionComboBox.SelectedIndexChanged += new EventHandler(gameSelectionComboBox_SelectedIndexChanged);
+            gameSelectionComboBox.SelectedIndexChanged += new EventHandler(GameSelectionComboBox_SelectedIndexChanged);
         }
 
         private void LoadConfiguration()
@@ -160,7 +160,8 @@ namespace RoguelikeManager
             }
         }
 
-        private void gameSelectionComboBox_SelectedIndexChanged(object sender, EventArgs e)
+#nullable disable
+        private void GameSelectionComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
             {
@@ -187,5 +188,6 @@ namespace RoguelikeManager
                 MessageBox.Show("An error occurred while updating the configuration: " + ex.Message);
             }
         }
+#nullable restore
     }
 }
