@@ -1,6 +1,6 @@
-# Frogcomposband Manager
+# Roguelike Manager
 
-A quick and dirty save game manager for Frogcomposband. It will backup and restore saves for disasters/scumming. File locations are configured in the `config.json` file.
+A quick and dirty save game manager for roguelikes. It will backup and restore saves for disasters/scumming. File locations are configured in the `config.json` file.
 
 ## Features
 
