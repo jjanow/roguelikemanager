@@ -34,4 +34,10 @@ The application provides a simple user interface with buttons to perform various
 
 ## Building and Running
 
-The project is a Windows Forms application written in C#. You can open the solution in Visual Studio and build it using the standard build process.
+The original project was a Windows Forms application written in C# and is still included for Windows users. A lightweight Tkinter front end is provided so the manager can also run on Linux desktops such as Kubuntu.
+
+### Running on Kubuntu
+
+1. Ensure Python 3 is installed.
+2. Execute `python3 kubuntu_app.py` from the repository root.
+3. The application reads the same `RoguelikeManager/config.json` file as the Windows version.
