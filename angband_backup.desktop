@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Exec=python3 /full/path/to/angband_backup/main.py
+Name=Angband Backup Utility
+Icon=folder-sync
+Terminal=false
+Categories=Utility;
