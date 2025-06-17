@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from PySide6 import QtWidgets
+from PySide6 import QtWidgets, QtGui
 
 from .backup import perform_backup
 from .config import load_config, save_config
@@ -56,6 +56,9 @@ class MainWindow(QtWidgets.QMainWindow):
         super().__init__()
         self.setWindowTitle("Angband Backup")
         self._build_ui()
+        self._create_tray_icon()
+        # Start hidden so the application primarily runs from the tray
+        self.hide()
 
     def _build_ui(self) -> None:
         central = QtWidgets.QWidget()
@@ -78,12 +81,31 @@ class MainWindow(QtWidgets.QMainWindow):
         self.backup_btn.clicked.connect(self.on_backup)
         self.settings_btn.clicked.connect(self.on_settings)
 
+    def _create_tray_icon(self) -> None:
+        """Initialise system tray icon and menu."""
+        icon = self.style().standardIcon(QtWidgets.QStyle.SP_ComputerIcon)
+        self.tray_icon = QtWidgets.QSystemTrayIcon(icon, self)
+
+        menu = QtWidgets.QMenu()
+        backup_action = menu.addAction("Backup Now")
+        settings_action = menu.addAction("Settings")
+        exit_action = menu.addAction("Exit")
+        self.tray_icon.setContextMenu(menu)
+
+        backup_action.triggered.connect(self.on_backup)
+        settings_action.triggered.connect(self.on_settings)
+        exit_action.triggered.connect(QtWidgets.QApplication.quit)
+
+        self.tray_icon.show()
+
     def on_backup(self) -> None:
         config = load_config()
         source_dir = config.get("source_dir", str(Path.home()))
         target_dir = config["backup_dir"]
         path = perform_backup(source_dir, target_dir)
-        QtWidgets.QMessageBox.information(self, "Backup Completed", f"Backup saved to {path}")
+        QtWidgets.QMessageBox.information(
+            self, "Backup Completed", f"Backup saved to {path}"
+        )
 
     def on_settings(self) -> None:
         config = load_config()
@@ -100,7 +122,7 @@ class MainWindow(QtWidgets.QMainWindow):
 def main() -> None:
     app = QtWidgets.QApplication([])
     window = MainWindow()
-    window.show()
+    # The main window is hidden by default; run the event loop
     app.exec()
 
 
