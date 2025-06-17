@@ -22,19 +22,22 @@ def perform_backup(source_dir: str, target_base_dir: str) -> str:
     Returns
     -------
     str
-        The path to the created backup directory.
+        A message describing whether the backup was successful.
     """
     src = Path(source_dir)
     dst_base = Path(target_base_dir)
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     backup_dir = dst_base / timestamp
-    backup_dir.mkdir(parents=True, exist_ok=True)
+    try:
+        backup_dir.mkdir(parents=True, exist_ok=True)
 
-    for item in src.iterdir():
-        target = backup_dir / item.name
-        if item.is_dir():
-            shutil.copytree(item, target)
-        else:
-            shutil.copy2(item, target)
+        for item in src.iterdir():
+            target = backup_dir / item.name
+            if item.is_dir():
+                shutil.copytree(item, target)
+            else:
+                shutil.copy2(item, target)
+    except Exception as exc:  # pragma: no cover - simple error reporting
+        return f"Backup failed: {exc}"
 
-    return str(backup_dir)
+    return f"Backup successful: {backup_dir}"

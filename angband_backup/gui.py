@@ -102,10 +102,11 @@ class MainWindow(QtWidgets.QMainWindow):
         config = load_config()
         source_dir = config.get("source_dir", str(Path.home()))
         target_dir = config["backup_dir"]
-        path = perform_backup(source_dir, target_dir)
-        QtWidgets.QMessageBox.information(
-            self, "Backup Completed", f"Backup saved to {path}"
-        )
+        status = perform_backup(source_dir, target_dir)
+        if status.startswith("Backup successful"):
+            QtWidgets.QMessageBox.information(self, "Backup", status)
+        else:
+            QtWidgets.QMessageBox.critical(self, "Backup", status)
 
     def on_settings(self) -> None:
         config = load_config()
